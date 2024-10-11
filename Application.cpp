@@ -79,7 +79,6 @@ Application::Application( int &argc, char **argv )
 		.arg( MAJOR_VER ).arg( MINOR_VER ).arg( RELEASE_VER ).arg( BUILD_VER ) );
 	setOrganizationDomain(u"ria.ee"_s);
 	setOrganizationName(u"RIA"_s);
-	setStyle(u"windowsvista"_s);
 	QNetworkProxyFactory::setUseSystemConfiguration(true);
 }
 

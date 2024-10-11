@@ -119,9 +119,7 @@ else()
 		ScheduledUpdateTask.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/translations.qrc
 		${CMAKE_CURRENT_BINARY_DIR}/config.qrc
-		common/Common.cpp
 		common/Configuration.cpp
-		common/QPCSC.cpp
 		common/qtsingleapplication/src/qtlocalpeer.cpp
 		common/qtsingleapplication/src/qtsingleapplication.cpp
 	)
@@ -134,15 +132,15 @@ else()
 		INTERPROCEDURAL_OPTIMIZATION YES
 		INTERPROCEDURAL_OPTIMIZATION_DEBUG NO
 	)
+	target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE
 		WIN32_LEAN_AND_MEAN
 		UNICODE
 		CONFIG_URL="${CONFIG_URL}"
-		COMMON_STATIC
 		NO_CACHE
 	)
 	target_link_libraries(${PROJECT_NAME} Qt6::Widgets Qt6::Network OpenSSL::Crypto
-		msi wintrust Crypt32 taskschd comsupp Setupapi winscard Wtsapi32
+		msi wintrust Crypt32 taskschd comsupp Setupapi Wtsapi32
 	)
 
 	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -165,7 +163,6 @@ else()
 			-ext WixToolset.UI.wixext
 			-bv WixUIDialogBmp=${CMAKE_SOURCE_DIR}/cmake/modules/dlgbmp.bmp
 			-bv WixUIBannerBmp=${CMAKE_SOURCE_DIR}/cmake/modules/banner.bmp
-			-d MSI_VERSION=${VERSION}
 			-d appicon=${CMAKE_SOURCE_DIR}/appicon.ico
 			-d qt_path=${qtCore_install_prefix}
 			-d qt_suffix=$<$<CONFIG:Debug>:d>
